@@ -1,4 +1,4 @@
-export const Employees = [
+const Employees = [
   {
     "id": 0,
     "name": "Daniel",
@@ -60,3 +60,5 @@ export const Employees = [
     "email": "janet.stewart@hussa.rs"
   }
 ];
+
+export default Employees;

@@ -1,11 +1,25 @@
-.header-top {
-
+.header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80px;
+    background-color: #355990;
 }
 
-.header-main {
-
+.header__top {
+    height: 15%;
+    background-color: #1e3b68;
 }
 
-.header-text {
+.header__main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
+.header__main__text {
+    font-size: x-large;
+    color: white;
+    padding-left: 15%;
 }
