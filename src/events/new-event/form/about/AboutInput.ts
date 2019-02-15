@@ -7,12 +7,17 @@ export interface IAboutInput {
     description: string;
     descriptionError: string;
 
-    category: string;
+    categoryId: string;
 
-    paymentType: string;
+    paymentType: PaymentType;
 
-    paymentFee: string;
-    paymentFeeError: string;
+    eventFee: string;
+    eventFeeError: string;
 
     reward: string;
+}
+
+export enum PaymentType {
+    FreeEvent = "free",
+    PaidEvent = "paid"
 }

@@ -1,12 +1,16 @@
-enum DayPeriod {
-    AM,
-    PM
+export enum DayPeriod {
+    AM = "AM",
+    PM = "PM"
 }
 
 export interface IWhenInput {
+    [fieldName: string]: string;
+
     startDate: string;
-    startHour: string;
+    startDateError: string;
+
+    startTime: string;
     startDayPeriod: DayPeriod;
-    email: string;
-    duration: number;
+
+    duration: string;
 }

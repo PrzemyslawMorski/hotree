@@ -1,4 +1,11 @@
-const Employees = [
+export interface Employee {
+  id: number;
+  name: string;
+  lastname: string;
+  email: string;
+}
+
+const employeesJSON = [
   {
     "id": 0,
     "name": "Daniel",
@@ -60,5 +67,18 @@ const Employees = [
     "email": "janet.stewart@hussa.rs"
   }
 ];
+
+const Employees: Employee[] = employeesJSON.map((user) => {
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    lastname: user.lastname
+  }
+});
+
+const UserId = 3;
+
+export const User: Employee | undefined = Employees.find((employee) => employee.id === UserId);
 
 export default Employees;

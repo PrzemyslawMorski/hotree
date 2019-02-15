@@ -1,4 +1,8 @@
 export interface ICoordinatorInput {
-    name: string;
+    [fieldName: string]: string;
+
+    id: string;
+
     email: string;
+    emailError: string;
 }
