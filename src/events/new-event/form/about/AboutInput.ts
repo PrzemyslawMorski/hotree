@@ -1,8 +1,18 @@
 export interface IAboutInput {
+    [fieldName: string]: string;
+
     title: string;
+    titleError: string;
+
     description: string;
+    descriptionError: string;
+
     category: string;
-    payment: boolean;
+
+    paymentType: string;
+
     paymentFee: string;
-    reward: number;
+    paymentFeeError: string;
+
+    reward: string;
 }
