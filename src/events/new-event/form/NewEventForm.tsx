@@ -109,7 +109,7 @@ class NewEventForm extends Component<INewEventFormProps> {
 
         let emailError = "";
 
-        let dateError = "";
+        let startDateError = "";
 
         if (this.state.aboutInput.title == "") {
             titleError = "Title cannot be empty"
@@ -133,6 +133,14 @@ class NewEventForm extends Component<INewEventFormProps> {
             emailError = "Email has to be a valid email";
         }
 
+        if (this.state.whenInput.startDate == "") {
+            startDateError = "Start date cannot be empty";
+        }
+
+        if (this.state.whenInput.startDate != "" && Date.parse(this.state.whenInput.startDate) < Date.now()) {
+            startDateError = "Event cannot be created prior to current date";
+        }
+
         const newState = this.state;
 
         if (titleError != "" || descriptionError != "" || paymentFeeError != "") {
@@ -147,25 +155,49 @@ class NewEventForm extends Component<INewEventFormProps> {
             newState.coordinatorInput.emailError = emailError;
         }
 
-        if (dateError != "") {
+        if (startDateError != "") {
             formValid = false;
-            newState.whenInput.dateError = dateError;
+            newState.whenInput.startDateError = startDateError;
         }
 
         if (formValid) {
             console.log("submitted");
+
+            const dateFormatted = date12hTo24h(this.state.whenInput.startDate,
+                this.state.whenInput.startTime, this.state.whenInput.startDayPeriod);
+
+            let categoryIdAsNum = Number.parseInt(this.state.aboutInput.categoryId);
+            if (Number.isNaN(categoryIdAsNum)) {
+                categoryIdAsNum = -1;
+            }
+
+            let eventFeeAsNum = Number.parseInt(this.state.aboutInput.eventFee);
+            if (Number.isNaN(eventFeeAsNum)) {
+                eventFeeAsNum = 0;
+            }
+
+            let rewardAsNum = Number.parseInt(this.state.aboutInput.reward);
+            if (Number.isNaN(rewardAsNum)) {
+                rewardAsNum = 0;
+            }
+
+            let durationAsNum = Number.parseInt(this.state.aboutInput.duration);
+            if (Number.isNaN(durationAsNum)) {
+                durationAsNum = 0;
+            }
+
             const newEvent: NewEventDto = {
-                title: "",
-                description: "",
-                categoryId: 0,
-                paidEvent: false,
-                eventFee: 0,
-                reward: 0,
-                date: "",
-                duration: 0,
+                title: this.state.aboutInput.title,
+                description: this.state.aboutInput.description,
+                categoryId: categoryIdAsNum,
+                paidEvent: this.state.aboutInput.paymentType == PaymentType.PaidEvent,
+                eventFee: eventFeeAsNum,
+                reward: rewardAsNum,
+                date: dateFormatted,
+                duration: durationAsNum,
                 coordinator: {
-                    id: "",
-                    email: "",
+                    id: this.state.coordinatorInput.id,
+                    email: this.state.coordinatorInput.email,
                 }
             };
             this.props.onEventCreated(newEvent);
@@ -173,6 +205,10 @@ class NewEventForm extends Component<INewEventFormProps> {
             this.setState(newState);
         }
     }
+}
+
+function date12hTo24h(startDate: string, startTime: string, startDayPeriod: DayPeriod): string {
+    return "date12hTo24h not implemented";
 }
 
 export default NewEventForm;

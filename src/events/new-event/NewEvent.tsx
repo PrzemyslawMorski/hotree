@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import NewEventForm from "./form/NewEventForm";
 import Summary from "./summary/Summary";
+import {NewEventDto} from "./NewEventDto";
 
 class NewEvent extends Component {
     state = {
@@ -13,7 +14,7 @@ class NewEvent extends Component {
     }
 
     render() {
-        if(this.state.eventCreated) {
+        if (this.state.eventCreated) {
             return <Summary/>
         }
 
@@ -24,7 +25,8 @@ class NewEvent extends Component {
         );
     }
 
-    onEventCreated() {
+    onEventCreated(newEvent: NewEventDto) {
+        console.log(JSON.stringify(newEvent));
         this.setState({eventCreated: true})
     }
 }
