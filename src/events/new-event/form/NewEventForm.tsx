@@ -6,6 +6,8 @@ import {IAboutInput, PaymentType} from "./about/AboutInput";
 import {NewEventDto} from "../NewEventDto";
 import {ICoordinatorInput} from "./coordinator/CoordinatorInput";
 import {DayPeriod, IWhenInput} from "./when/WhenInput";
+import "./NewEventForm.css";
+
 
 interface INewEventFormProps {
     onEventCreated: (newEvent: NewEventDto) => void;
@@ -56,11 +58,13 @@ class NewEventForm extends Component<INewEventFormProps> {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit} noValidate={true}>
+            <form onSubmit={this.onSubmit} noValidate={true} className={"form"}>
                 <About input={this.state.aboutInput} onAboutChange={this.onAboutChange}/>
                 <Coordinator input={this.state.coordinatorInput} onCoordinatorChange={this.onCoordinatorChange}/>
                 <When input={this.state.whenInput} onWhenChange={this.onWhenChange}/>
-                <button type="submit">Publish event</button>
+                <div className={"submit"}>
+                    <button type="submit" className={"submit__button"}>Publish event</button>
+                </div>
             </form>
         );
     }

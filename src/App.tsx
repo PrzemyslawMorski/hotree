@@ -6,7 +6,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Header pageName={"New Event"}/>
+                <Header pageName={"New event"}/>
                 <NewEvent/>
             </div>
         );

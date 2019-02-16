@@ -1,0 +1,97 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.sub-form {
+    box-shadow: 0 0 3px 0 lightgray;
+
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+
+    border-color: darkgray;
+
+    margin-bottom: 15px;
+
+    width: 80%;
+    position: center;
+
+    padding: 3%;
+}
+
+.sub-form:first-child {
+    margin-top: 30px;
+}
+
+.sub-form__header {
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 15px;
+}
+
+.sub-form__header-text {
+    font-size: larger;
+    color: #1e3b68;
+    text-transform: capitalize;
+}
+
+.sub-form__field {
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.sub-form__field:last-child {
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+
+.sub-form__field > span {
+    padding: 0 10px;
+}
+
+.sub-form__field input, .sub-form__field select  {
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    padding: 5px 8px;
+    min-height: 1.5em;
+    background-color: white;
+}
+
+.sub-form__field select optgroup {
+    color: darkgray;
+}
+
+.sub-form__field select optgroup option {
+    color: black;
+}
+
+.sub-form__field__label {
+    width: 110px;
+    font-size: small;
+    color: #355990;
+    text-transform: uppercase;
+}
+
+.submit {
+    margin: 0 auto;
+}
+
+.submit__button {
+    background-color: darkorange;
+    border:none;
+
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+
+    padding: 15px 30px;
+
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
