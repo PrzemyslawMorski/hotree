@@ -11,48 +11,59 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
     return (
         <div className={"sub-form"}>
 
-            <div className={"sub-form__header"}>
-                <span className={"sub-form__header-text"}>When</span>
+            <div className={"sub-form--header-container"}>
+                <span className={"sub-form--header"}>When</span>
             </div>
 
-            <div className={"sub-form__field"}>
-                <label className={"sub-form__field__label"}>
-                    Starts on<span style={{color: "red"}}>*</span>
-                </label>
+            <div className={"sub-form--field"}>
+                <div className={"sub-form--field--label-container"}>
+                    <label>
+                        Starts on<span style={{color: "red"}}>*</span>
+                    </label>
+                </div>
 
-                <input type="date" name="startDate" value={props.input.startDate} onChange={props.onWhenChange}
-                       placeholder={"dd/mm/yyyy"}/>
+                <div className={"sub-form--field--input-container"}>
+                    <input type="date" name="startDate" value={props.input.startDate} onChange={props.onWhenChange}
+                           placeholder={"dd/mm/yyyy"}/>
 
-                <span>at</span>
+                    <label>
+                        <span>at</span>
+                        <input type="time" name="startTime" value={props.input.startTime} onChange={props.onWhenChange}
+                               min={"0:00"} max={"11:59"} step={60}/>
+                    </label>
 
-                <input type="time" name="startTime" value={props.input.startTime} onChange={props.onWhenChange}
-                       min={"0:00"} max={"11:59"} step={60}/>
-                <input type="radio" checked={props.input.startDayPeriod == DayPeriod.AM}
-                       name="startDayPeriod" value={DayPeriod.AM} onChange={props.onWhenChange}/>
+                    <label>
+                        <input type="radio" checked={props.input.startDayPeriod == DayPeriod.AM}
+                               name="startDayPeriod" value={DayPeriod.AM} onChange={props.onWhenChange}/>
+                        AM
+                    </label>
 
-                <span>
-                    AM
-                </span>
+                    <label>
+                        <input type="radio" checked={props.input.startDayPeriod == DayPeriod.PM}
+                               name="startDayPeriod" value={DayPeriod.PM} onChange={props.onWhenChange}/>
+                        PM
+                    </label>
+                </div>
 
-                <input type="radio" checked={props.input.startDayPeriod == DayPeriod.PM}
-                       name="startDayPeriod" value={DayPeriod.PM} onChange={props.onWhenChange}/>
-
-                <span>
-                    PM
-                </span>
-
-                <label>{props.input.startDateError}</label>
+                <div className={"sub-form--field--error-container"}>
+                    <label className={"sub-form--field--error"}>{props.input.startDateError}</label>
+                </div>
             </div>
 
-            <div className={"sub-form__field"}>
-                <label className={"sub-form__field__label"} htmlFor={"duration"}>
-                    Duration
-                </label>
+            <div className={"sub-form--field"}>
+                <div className={"sub-form--field--label-container"}>
+                    <label htmlFor={"duration"}>
+                        Duration
+                    </label>
+                </div>
 
-                <input type="number" name="duration" value={props.input.duration} onChange={props.onWhenChange}
-                       placeholder={"Number"}/>
+                <div className={"sub-form--field--input-container"}>
+                    <input type="number" name="duration" value={props.input.duration} onChange={props.onWhenChange}
+                           placeholder={"Number"}/>
 
-                <span>hour</span>
+                    <span>hour</span>
+                </div>
+
             </div>
         </div>
     );

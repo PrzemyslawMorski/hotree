@@ -2,58 +2,94 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+}
+
+@media screen and (max-width: 600px) {
+    .form {
+        padding: 5% 15px;
+    }
+
+    .sub-form {
+        width: 90%;
+    }
+
+    .sub-form--field {
+        flex-direction: column;
+    }
+
+    .sub-form--field > div {
+        margin-bottom: 10px;
+    }
+    .sub-form--field > div:last-child {
+        margin-bottom: 0;
+    }
+
+    .sub-form--field--label-container,
+    .sub-form--field--input-container{
+        align-self: start;
+    }
+
+    .sub-form--field--input-container select {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sub-form--field--input-container select,
+    .sub-form--field--input-container textarea,
+    .sub-form--field--input-container input[type="text"],
+    .sub-form--field--input-container input[type="email"]{
+        width: 100%;
+    }
+
+
+}
+
+@media screen and (min-width: 600px) {
+    .sub-form--field--label-container {
+        align-self: start;
+    }
 }
 
 .sub-form {
-    box-shadow: 0 0 3px 0 lightgray;
-
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-
-    border-color: darkgray;
-
+    background-color: white;
     margin-bottom: 15px;
-
-    width: 80%;
-    position: center;
-
-    padding: 3%;
+    box-shadow: 0 0 3px 0 lightgray;
+    border-radius: 2px;
+    border-color: darkgray;
+    padding: 10px 10px;
 }
 
-.sub-form:first-child {
-    margin-top: 30px;
-}
-
-.sub-form__header {
+.sub-form--header-container {
     border-bottom: 1px solid lightgray;
     margin-bottom: 15px;
 }
 
-.sub-form__header-text {
+.sub-form--header {
     font-size: larger;
     color: #1e3b68;
     text-transform: capitalize;
 }
 
-.sub-form__field {
-    padding: 10px 0;
-    width: 100%;
+.sub-form--field {
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 }
 
-.sub-form__field:last-child {
-    padding-top: 10px;
-    padding-bottom: 0;
+.sub-form--field:last-child {
+    margin-bottom: 0;
 }
 
-.sub-form__field > span {
-    padding: 0 10px;
+.sub-form--field--label-container > label {
+    font-size: small;
+    color: #355990;
+    text-transform: uppercase;
 }
 
-.sub-form__field input, .sub-form__field select  {
+.sub-form--field--input-container input,
+.sub-form--field--input-container textarea,
+.sub-form--field--input-container select {
     border: 1px solid lightgray;
     border-radius: 2px;
     padding: 5px 8px;
@@ -61,37 +97,39 @@
     background-color: white;
 }
 
-.sub-form__field select optgroup {
+.sub-form--field--input-container input {
+    margin-bottom: 5px;
+}
+
+.sub-form--field--input-container input[type="number"]{
+    margin-right:10px;
+}
+
+.sub-form--field--input-container > label {
+    display: flex;
+    align-items: center;
+}
+
+.sub-form--field--input-container > label > span {
+    padding-right: 5px;
+}
+
+optgroup {
     color: darkgray;
 }
 
-.sub-form__field select optgroup option {
+optgroup option {
     color: black;
 }
 
-.sub-form__field__label {
-    width: 110px;
-    font-size: small;
-    color: #355990;
-    text-transform: uppercase;
-}
-
-.submit {
-    margin: 0 auto;
-}
-
-.submit__button {
+.submit--button {
     background-color: darkorange;
-    border:none;
-
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-
     padding: 15px 30px;
+
+    border:none;
+    border-radius: 2px;
 
     color: white;
     font-weight: bold;
     text-transform: uppercase;
-
 }

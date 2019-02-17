@@ -7,9 +7,9 @@ interface IHeaderProps {
 
 const Header: React.FunctionComponent<IHeaderProps> = (props: IHeaderProps) => {
     return <div className={"header"}>
-        <div className={"header__top"}/>
-        <div className={"header__main"}>
-            <span className={"header__main__text"}>{props.pageName}</span>
+        <div className={"header-top"}/>
+        <div className={"header-main"}>
+            <span className={"header-main-text"}>{props.pageName}</span>
         </div>
     </div>
 };

@@ -29,35 +29,46 @@ const Coordinator: FunctionComponent<ICoordinatorProps> = (props: ICoordinatorPr
 
     return <div className={"sub-form"}>
 
-        <div className={"sub-form__header"}>
-            <span className={"sub-form__header-text"}>Coordinator</span>
+        <div className={"sub-form--header-container"}>
+            <span className={"sub-form--header"}>Coordinator</span>
         </div>
 
-        <div className={"sub-form__field"}>
-            <label className={"sub-form__field__label"} htmlFor={"id"}>
-                Responsible<span style={{color: "red"}}>*</span>
-            </label>
+        <div className={"sub-form--field"}>
+            <div className={"sub-form--field--label-container"}>
+                <label htmlFor={"id"}>
+                    Responsible<span style={{color: "red"}}>*</span>
+                </label>
+            </div>
 
-            <select name="id" onChange={props.onCoordinatorChange}
-                    placeholder={"Select category (skills, interests, locations)"}>
-                <optgroup label={"Me"}>
-                    {userOption}
-                </optgroup>
-                <optgroup label={"Others"}>
-                    {othersOptions}
-                </optgroup>
-            </select>
+            <div className={"sub-form--field--input-container"}>
+                <select name="id" onChange={props.onCoordinatorChange}
+                        placeholder={"Select category (skills, interests, locations)"}>
+                    <optgroup label={"Me"}>
+                        {userOption}
+                    </optgroup>
+                    <optgroup label={"Others"}>
+                        {othersOptions}
+                    </optgroup>
+                </select>
+            </div>
         </div>
 
-        <div className={"sub-form__field"}>
-            <label className={"sub-form__field__label"} htmlFor={"email"}>
-                Email
-            </label>
+        <div className={"sub-form--field"}>
 
-            <input type="text" name="email" value={props.input.email} onChange={props.onCoordinatorChange}
-                   placeholder={"Email"}/>
+            <div className={"sub-form--field--label-container"}>
+                <label htmlFor={"email"}>
+                    Email
+                </label>
+            </div>
 
-            <label>{props.input.emailError}</label>
+            <div className={"sub-form--field--input-container"}>
+                <input type="text" name="email" value={props.input.email} onChange={props.onCoordinatorChange}
+                       placeholder={"Email"}/>
+            </div>
+
+            <div className={"sub-form--field--error-container"}>
+                <label className={"sub-form--field--error"}>{props.input.emailError}</label>
+            </div>
         </div>
     </div>
 };

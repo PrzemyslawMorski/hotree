@@ -63,7 +63,7 @@ class NewEventForm extends Component<INewEventFormProps> {
                 <Coordinator input={this.state.coordinatorInput} onCoordinatorChange={this.onCoordinatorChange}/>
                 <When input={this.state.whenInput} onWhenChange={this.onWhenChange}/>
                 <div className={"submit"}>
-                    <button type="submit" className={"submit__button"}>Publish event</button>
+                    <button type="submit" className={"submit--button"}>Publish event</button>
                 </div>
             </form>
         );
