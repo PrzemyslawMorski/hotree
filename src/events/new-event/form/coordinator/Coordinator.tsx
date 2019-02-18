@@ -2,6 +2,7 @@ import React, {FormEvent, FunctionComponent} from 'react';
 import {ICoordinatorInput} from "./CoordinatorInput";
 import Employees, {User} from "../../../../mocks/employees";
 import "../NewEventForm.css";
+import {inputContainerClass, labelContainerClass} from "../NewEventForm";
 
 interface ICoordinatorProps {
     input: ICoordinatorInput;
@@ -55,19 +56,19 @@ const Coordinator: FunctionComponent<ICoordinatorProps> = (props: ICoordinatorPr
 
         <div className={"sub-form--field"}>
 
-            <div className={"sub-form--field--label-container"}>
+            <div className={labelContainerClass(props.input.emailError)}>
                 <label htmlFor={"email"}>
                     Email
                 </label>
             </div>
 
-            <div className={"sub-form--field--input-container"}>
+            <div className={inputContainerClass(props.input.emailError)}>
                 <input type="text" name="email" value={props.input.email} onChange={props.onCoordinatorChange}
                        placeholder={"Email"}/>
             </div>
 
             <div className={"sub-form--field--error-container"}>
-                <label className={"sub-form--field--error"}>{props.input.emailError}</label>
+                {props.input.emailError !== "" ? <label>{props.input.emailError}</label> : null}
             </div>
         </div>
     </div>

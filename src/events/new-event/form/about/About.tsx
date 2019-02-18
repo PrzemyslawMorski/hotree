@@ -2,6 +2,7 @@ import React, {FormEvent, FunctionComponent} from 'react';
 import {IAboutInput, PaymentType} from "./AboutInput";
 import EventCategories from "../../../../mocks/categories";
 import "../NewEventForm.css";
+import {inputContainerClass, labelContainerClass} from "../NewEventForm";
 
 interface IAboutProps {
     input: IAboutInput;
@@ -12,11 +13,10 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
     const eventCategories = EventCategories.map((category) => <option value={category.id}
                                                                       key={category.id}>{category.name}</option>);
     const paymentFeeInput = props.input.paymentType == PaymentType.FreeEvent ? null :
-        <label>
+        <label className={inputContainerClass(props.input.eventFeeError)}>
             <input type="number" min={0.00} step={0.01} required name="paymentFee" value={props.input.eventFee}
                    onChange={props.onAboutChange} placeholder={"Fee"}/>
             <span>$</span>
-            <label>{props.input.eventFeeError}</label>
         </label>;
 
     return <div className={"sub-form"}>
@@ -26,38 +26,38 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
         </div>
 
         <div className={"sub-form--field"}>
-            <div className={"sub-form--field--label-container"}>
+            <div className={labelContainerClass(props.input.titleError)}>
                 <label htmlFor={"title"}>
                     Title<span style={{color: "red"}}>*</span>
                 </label>
             </div>
 
-            <div className={"sub-form--field--input-container"}>
+            <div className={inputContainerClass(props.input.titleError)}>
                 <input type="text" name="title" value={props.input.title}
                        onChange={props.onAboutChange}
                        placeholder={"Make it short and clear"}/>
             </div>
 
             <div className={"sub-form--field--error-container"}>
-                <label className={"sub-form--field--error"}>{props.input.titleError}</label>
+                {props.input.titleError !== "" ? <label>{props.input.titleError}</label> : null}
             </div>
         </div>
 
         <div className={"sub-form--field"}>
-            <div className={"sub-form--field--label-container"}>
+            <div className={labelContainerClass(props.input.descriptionError)}>
                 <label htmlFor={"description"}>
                     Description<span style={{color: "red"}}>*</span>
                 </label>
             </div>
 
-            <div className={"sub-form--field--input-container"}>
+            <div className={inputContainerClass(props.input.descriptionError)}>
                 <textarea name="description"
-                       value={props.input.description}
-                       onChange={props.onAboutChange} placeholder={"Write about your event, be creative"}/>
+                          value={props.input.description}
+                          onChange={props.onAboutChange} placeholder={"Write about your event, be creative"}/>
             </div>
 
             <div className={"sub-form--field--error-container"}>
-                <label className={"sub-form--field--error"}>{props.input.descriptionError}</label>
+                {props.input.descriptionError !== "" ? <label>{props.input.descriptionError}</label> : null}
             </div>
         </div>
 
@@ -80,13 +80,13 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
         </div>
 
         <div className={"sub-form--field"}>
-            <div className={"sub-form--field--label-container"}>
+            <div className={labelContainerClass(props.input.eventFeeError)}>
                 <label htmlFor={"paymentType"}>
                     Payment
                 </label>
             </div>
 
-            <div className={"sub-form--field--input-container"}>
+            <div className={inputContainerClass(props.input.eventFeeError)}>
                 <label>
                     <input type="radio" checked={props.input.paymentType == PaymentType.FreeEvent}
                            name="paymentType" value={PaymentType.FreeEvent} onChange={props.onAboutChange}>
@@ -101,6 +101,10 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
                 </label>
 
                 {paymentFeeInput}
+            </div>
+
+            <div className={"sub-form--field--error-container"}>
+                {props.input.eventFeeError !== "" ? <label>{props.input.eventFeeError}</label> : null}
             </div>
 
         </div>

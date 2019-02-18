@@ -2,53 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-@media screen and (max-width: 600px) {
-    .form {
-        padding: 5% 15px;
-    }
-
-    .sub-form {
-        width: 90%;
-    }
-
-    .sub-form--field {
-        flex-direction: column;
-    }
-
-    .sub-form--field > div {
-        margin-bottom: 10px;
-    }
-    .sub-form--field > div:last-child {
-        margin-bottom: 0;
-    }
-
-    .sub-form--field--label-container,
-    .sub-form--field--input-container{
-        align-self: start;
-    }
-
-    .sub-form--field--input-container select {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .sub-form--field--input-container select,
-    .sub-form--field--input-container textarea,
-    .sub-form--field--input-container input[type="text"],
-    .sub-form--field--input-container input[type="email"]{
-        width: 100%;
-    }
-
-
-}
-
-@media screen and (min-width: 600px) {
-    .sub-form--field--label-container {
-        align-self: start;
-    }
+    padding: 20px 10px;
 }
 
 .sub-form {
@@ -58,25 +12,28 @@
     border-radius: 2px;
     border-color: darkgray;
     padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .sub-form--header-container {
     border-bottom: 1px solid lightgray;
-    margin-bottom: 15px;
-}
-
-.sub-form--header {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    width: 100%;
     font-size: larger;
     color: #1e3b68;
-    text-transform: capitalize;
 }
 
 .sub-form--field {
-    margin-bottom: 10px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    width: 100%;
 }
-
 .sub-form--field:last-child {
     margin-bottom: 0;
 }
@@ -87,22 +44,63 @@
     text-transform: uppercase;
 }
 
+.sub-form--field--label-error > label {
+    color: red;
+}
+
+.sub-form--field--input-container {
+    width: 100%;
+}
+
+.sub-form--field--input-error > input,
+.sub-form--field--input-error > textarea {
+    border-color: red !important;
+}
+
+.sub-form--field--error-container {
+    color: white;
+    background-color: red;
+    font-size: small;
+    padding: 3px 5px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+.sub-form--field--error-container:empty {
+    display: none;
+}
+
+.sub-form--field--input-container select {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sub-form--field--input-container select,
+.sub-form--field--input-container textarea,
+.sub-form--field--input-container input[type="text"],
+.sub-form--field--input-container input[type="email"] {
+    width: 100%;
+}
+
+.sub-form--field > div:not(:last-child) {
+    margin-bottom: 5px;
+}
+
 .sub-form--field--input-container input,
 .sub-form--field--input-container textarea,
 .sub-form--field--input-container select {
     border: 1px solid lightgray;
     border-radius: 2px;
     padding: 5px 8px;
-    min-height: 1.5em;
     background-color: white;
 }
 
 .sub-form--field--input-container input {
     margin-bottom: 5px;
 }
-
-.sub-form--field--input-container input[type="number"]{
-    margin-right:10px;
+.sub-form--field--input-container input[type="number"] {
+    width: 8rem;
+    margin-right: 10px;
 }
 
 .sub-form--field--input-container > label {
@@ -122,11 +120,54 @@ optgroup option {
     color: black;
 }
 
+@media screen and (min-width: 768px) {
+    .form {
+        padding: 15px 10%;
+    }
+
+    .sub-form {
+        padding: 20px 30px;
+        width: auto;
+    }
+
+    .sub-form--field {
+        flex-direction: row;
+    }
+
+    .sub-form--field--label-container {
+        width: 130px;
+    }
+
+    .sub-form--field--error-container {
+        width: 130px;
+    }
+
+    .sub-form--field--input-container {
+        display: flex;
+    }
+
+    .sub-form--field--input-container input[type="text"] {
+    }
+
+    .sub-form--field--input-container input[type="number"] {
+    }
+
+    .sub-form--field--input-container textarea {
+    }
+
+    .sub-form--field--error-container:empty {
+        display: none;
+    }
+
+    .sub-form--field--error-container:not(:empty) {
+    }
+}
+
 .submit--button {
     background-color: darkorange;
     padding: 15px 30px;
 
-    border:none;
+    border: none;
     border-radius: 2px;
 
     color: white;

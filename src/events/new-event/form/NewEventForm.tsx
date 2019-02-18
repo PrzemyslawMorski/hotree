@@ -74,8 +74,14 @@ class NewEventForm extends Component<INewEventFormProps> {
         const value = target.value.trim();
         const name = target.name;
 
+
         const newAboutInput = this.state.aboutInput;
         newAboutInput[name] = value;
+
+
+        if(name == "paymentType" && value == PaymentType.FreeEvent) {
+            newAboutInput.eventFeeError = "";
+        }
 
         this.setState({aboutInput: newAboutInput});
     }
@@ -147,21 +153,15 @@ class NewEventForm extends Component<INewEventFormProps> {
 
         const newState = this.state;
 
-        if (titleError != "" || descriptionError != "" || paymentFeeError != "") {
-            formValid = false;
-            newState.aboutInput.titleError = titleError;
-            newState.aboutInput.descriptionError = descriptionError;
-            newState.aboutInput.eventFeeError = paymentFeeError;
-        }
+        newState.coordinatorInput.emailError = emailError;
+        newState.aboutInput.titleError = titleError;
+        newState.aboutInput.descriptionError = descriptionError;
+        newState.aboutInput.eventFeeError = paymentFeeError;
+        newState.whenInput.startDateError = startDateError;
 
-        if (emailError != "") {
+        if (titleError != "" || descriptionError != "" || paymentFeeError != "" ||
+            emailError != "" || startDateError != "") {
             formValid = false;
-            newState.coordinatorInput.emailError = emailError;
-        }
-
-        if (startDateError != "") {
-            formValid = false;
-            newState.whenInput.startDateError = startDateError;
         }
 
         if (formValid) {
@@ -213,6 +213,22 @@ class NewEventForm extends Component<INewEventFormProps> {
 
 function date12hTo24h(startDate: string, startTime: string, startDayPeriod: DayPeriod): string {
     return "date12hTo24h not implemented";
+}
+
+export function labelContainerClass(fieldErrorValue: string) {
+    if(fieldErrorValue !== "") {
+        return "sub-form--field--label-container sub-form--field--label-error"
+    } else {
+        return "sub-form--field--label-container";
+    }
+}
+
+export function inputContainerClass(fieldErrorValue: string) {
+    if(fieldErrorValue !== "") {
+        return "sub-form--field--input-container sub-form--field--input-error"
+    } else {
+        return "sub-form--field--input-container";
+    }
 }
 
 export default NewEventForm;

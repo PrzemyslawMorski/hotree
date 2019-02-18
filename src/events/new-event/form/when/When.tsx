@@ -1,6 +1,7 @@
 import React, {FormEvent, FunctionComponent} from 'react';
 import {DayPeriod, IWhenInput} from "./WhenInput";
 import "../NewEventForm.css";
+import {inputContainerClass, labelContainerClass} from "../NewEventForm";
 
 interface IWhenProps {
     input: IWhenInput;
@@ -16,13 +17,13 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
             </div>
 
             <div className={"sub-form--field"}>
-                <div className={"sub-form--field--label-container"}>
+                <div className={labelContainerClass(props.input.startDateError)}>
                     <label>
                         Starts on<span style={{color: "red"}}>*</span>
                     </label>
                 </div>
 
-                <div className={"sub-form--field--input-container"}>
+                <div className={inputContainerClass(props.input.startDateError)}>
                     <input type="date" name="startDate" value={props.input.startDate} onChange={props.onWhenChange}
                            placeholder={"dd/mm/yyyy"}/>
 
@@ -46,7 +47,7 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
                 </div>
 
                 <div className={"sub-form--field--error-container"}>
-                    <label className={"sub-form--field--error"}>{props.input.startDateError}</label>
+                    {props.input.startDateError !== "" ? <label>{props.input.startDateError}</label> : null}
                 </div>
             </div>
 
