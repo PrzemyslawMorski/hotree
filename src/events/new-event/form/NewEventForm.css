@@ -44,7 +44,7 @@
     text-transform: uppercase;
 }
 
-.sub-form--field--label-error > label {
+.sub-form--field--label-error label {
     color: red;
 }
 
@@ -52,8 +52,8 @@
     width: 100%;
 }
 
-.sub-form--field--input-error > input,
-.sub-form--field--input-error > textarea {
+.sub-form--field--input-error input,
+.sub-form--field--input-error textarea {
     border-color: red !important;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .sub-form--field--input-container > label > span {
-    padding-right: 5px;
+    padding-right: 10px;
 }
 
 optgroup {
@@ -120,14 +120,14 @@ optgroup option {
     color: black;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 978px) {
     .form {
         padding: 15px 10%;
     }
 
     .sub-form {
         padding: 20px 30px;
-        width: auto;
+        max-width: 900px;
     }
 
     .sub-form--field {
@@ -135,31 +135,40 @@ optgroup option {
     }
 
     .sub-form--field--label-container {
-        width: 130px;
+        min-width: 120px;
     }
 
     .sub-form--field--error-container {
-        width: 130px;
+        display: block;
+        min-width: 10rem;
+        margin-left: 10px;
+    }
+
+    .sub-form--field--error-container:empty {
+        display: block;
+        background-color:white;
     }
 
     .sub-form--field--input-container {
         display: flex;
-    }
-
-    .sub-form--field--input-container input[type="text"] {
+        flex-direction: row;
+        align-items: center;
     }
 
     .sub-form--field--input-container input[type="number"] {
+        width: 5rem;
+    }
+
+    .sub-form--field--input-container label {
+        margin-right: 10px;
     }
 
     .sub-form--field--input-container textarea {
+        height: 8rem;
     }
 
-    .sub-form--field--error-container:empty {
-        display: none;
-    }
-
-    .sub-form--field--error-container:not(:empty) {
+    .sub-form--field--input-container > label > span {
+        padding-left: 10px;
     }
 }
 

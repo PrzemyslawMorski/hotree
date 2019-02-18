@@ -12,9 +12,10 @@ interface IAboutProps {
 const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
     const eventCategories = EventCategories.map((category) => <option value={category.id}
                                                                       key={category.id}>{category.name}</option>);
+
     const paymentFeeInput = props.input.paymentType == PaymentType.FreeEvent ? null :
-        <label className={inputContainerClass(props.input.eventFeeError)}>
-            <input type="number" min={0.00} step={0.01} required name="paymentFee" value={props.input.eventFee}
+        <label>
+            <input type="number" min={0.00} step={0.01} required name="eventFee" value={props.input.eventFee}
                    onChange={props.onAboutChange} placeholder={"Fee"}/>
             <span>$</span>
         </label>;
@@ -77,6 +78,8 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
                     {eventCategories}
                 </select>
             </div>
+
+            <div className={"sub-form--field--error-container"}/>
         </div>
 
         <div className={"sub-form--field"}>
@@ -118,7 +121,7 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
 
             <div className={"sub-form--field--input-container"}>
                 <label>
-                    <input type="number" name="reward" placeholder={"Number"} value={props.input.reward}
+                    <input type="number" name="reward" min="0" placeholder={"Number"} value={props.input.reward}
                            onChange={props.onAboutChange}/>
                 </label>
                 <span>reward points for attendance</span>

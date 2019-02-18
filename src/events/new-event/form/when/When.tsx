@@ -59,7 +59,7 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
                 </div>
 
                 <div className={"sub-form--field--input-container"}>
-                    <input type="number" name="duration" value={props.input.duration} onChange={props.onWhenChange}
+                    <input type="number" name="duration" min="0" value={props.input.duration} onChange={props.onWhenChange}
                            placeholder={"Number"}/>
 
                     <span>hour</span>

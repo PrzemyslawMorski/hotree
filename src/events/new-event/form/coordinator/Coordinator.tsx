@@ -52,6 +52,11 @@ const Coordinator: FunctionComponent<ICoordinatorProps> = (props: ICoordinatorPr
                     </optgroup>
                 </select>
             </div>
+
+            {/* I didn't really have the time to come up with a better solution to make sure that all fields' inputs
+            are the same width. I used a placeholder to make sure all fields are same width. On fields that can
+            display error messages the placeholder can contain a label with the error message.*/}
+            <div className={"sub-form--field--error-container"}/>
         </div>
 
         <div className={"sub-form--field"}>
