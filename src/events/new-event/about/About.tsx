@@ -1,6 +1,6 @@
 import React, {FormEvent, FunctionComponent} from 'react';
 import {IAboutInput, PaymentType} from "./AboutInput";
-import EventCategories from "../../../../mocks/categories";
+import EventCategories from "../../../mocks/categories";
 import "../NewEventForm.css";
 import {inputContainerClass, labelContainerClass, numCharsInText} from "../NewEventForm";
 

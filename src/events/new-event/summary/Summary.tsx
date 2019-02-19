@@ -1,7 +1,19 @@
 import React from 'react';
+import "./Summary.css";
 
-const Summary : React.FunctionComponent = () => {
-    return <div>Success</div>
+interface ISummaryProps {
+    onBackToFormClick: () => void;
+}
+
+const Summary: React.FunctionComponent<ISummaryProps> = (props) => {
+    return <div className={"summary"}>
+        <div>
+            <span className={"summary--header"}>Success</span>
+            <span>Event has been created.</span>
+        </div>
+
+        <button onClick={props.onBackToFormClick}>Back to form - for testing convenience</button>
+    </div>
 };
 
 export default Summary;

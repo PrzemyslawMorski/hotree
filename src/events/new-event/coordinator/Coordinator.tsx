@@ -1,6 +1,6 @@
 import React, {FormEvent, FunctionComponent} from 'react';
 import {ICoordinatorInput} from "./CoordinatorInput";
-import Employees, {User} from "../../../../mocks/employees";
+import Employees, {User} from "../../../mocks/employees";
 import "../NewEventForm.css";
 import {inputContainerClass, labelContainerClass} from "../NewEventForm";
 

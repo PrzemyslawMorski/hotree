@@ -3,18 +3,15 @@ import About from "./about/About";
 import Coordinator from "./coordinator/Coordinator";
 import When from "./when/When";
 import {IAboutInput, PaymentType} from "./about/AboutInput";
-import {NewEventDto} from "../NewEventDto";
+import {NewEventDto} from "./NewEventDto";
 import {ICoordinatorInput} from "./coordinator/CoordinatorInput";
 import {DayPeriod, IWhenInput} from "./when/WhenInput";
 import "./NewEventForm.css";
-import {User} from "../../../mocks/employees";
-
-
-interface INewEventFormProps {
-    onEventCreated: (newEvent: NewEventDto) => void;
-}
+import {User} from "../../mocks/employees";
+import Summary from "./summary/Summary";
 
 interface INewEventFormState {
+    eventCreated: boolean;
     aboutInput: IAboutInput;
     coordinatorInput: ICoordinatorInput;
     whenInput: IWhenInput;
@@ -22,8 +19,9 @@ interface INewEventFormState {
 
 const w3cEmailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-class NewEventForm extends Component<INewEventFormProps> {
+class NewEventForm extends Component {
     state: INewEventFormState = {
+        eventCreated: false,
         aboutInput: {
             title: "",
             titleError: "",
@@ -51,7 +49,7 @@ class NewEventForm extends Component<INewEventFormProps> {
         },
     };
 
-    constructor(props: INewEventFormProps) {
+    constructor(props: any) {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -59,9 +57,17 @@ class NewEventForm extends Component<INewEventFormProps> {
         this.onAboutChange = this.onAboutChange.bind(this);
         this.onCoordinatorChange = this.onCoordinatorChange.bind(this);
         this.onWhenChange = this.onWhenChange.bind(this);
+
+        // convenience methods for quick submitting and returning to the form
+        this.onEventCreated = this.onEventCreated.bind(this);
+        this.onBackToForm = this.onBackToForm.bind(this);
     }
 
     render() {
+        if (this.state.eventCreated) {
+            return <Summary onBackToFormClick={this.onBackToForm}/>
+        }
+
         return (
             <form onSubmit={this.onSubmit} noValidate={true} className={"form"}>
                 <About input={this.state.aboutInput} onAboutChange={this.onAboutChange}/>
@@ -234,10 +240,19 @@ class NewEventForm extends Component<INewEventFormProps> {
                     email: this.state.coordinatorInput.email,
                 }
             };
-            this.props.onEventCreated(newEvent);
+            this.onEventCreated(newEvent);
         } else {
             this.setState(newState);
         }
+    }
+
+    onEventCreated(newEvent: NewEventDto) {
+        console.log(JSON.stringify(newEvent));
+        this.setState({eventCreated: true});
+    }
+
+    onBackToForm() {
+        this.setState({eventCreated: false});
     }
 }
 

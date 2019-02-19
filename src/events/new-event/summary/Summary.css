@@ -1,0 +1,34 @@
+.summary {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.summary > div {
+    width: 80%;
+    background-color: #f0fcf3;
+    border-radius: 2px;
+    box-shadow: 0 0 3px 0 lightgray;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 15px 20px;
+}
+
+.summary > div > span {
+    margin-bottom: 10px;
+}
+
+.summary--header {
+    color: green;
+    font-size: larger;
+}
+
+@media screen and (min-width: 978px) {
+    .summary > div {
+        width: 50%;
+    }
+}

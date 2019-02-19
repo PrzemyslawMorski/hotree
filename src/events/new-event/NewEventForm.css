@@ -138,7 +138,7 @@
 
 .sub-form--field--input-info {
     font-size: smaller;
-    display:flex;
+    display: flex;
     justify-content: space-between;
     font-style: italic;
     color: darkgray;
