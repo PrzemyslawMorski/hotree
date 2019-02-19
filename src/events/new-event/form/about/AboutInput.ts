@@ -15,6 +15,7 @@ export interface IAboutInput {
     eventFeeError: string;
 
     reward: string;
+    rewardError: string;
 }
 
 export enum PaymentType {

@@ -13,4 +13,5 @@ export interface IWhenInput {
     startDayPeriod: DayPeriod;
 
     duration: string;
+    durationError: string;
 }

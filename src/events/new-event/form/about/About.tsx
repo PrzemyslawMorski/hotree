@@ -2,7 +2,7 @@ import React, {FormEvent, FunctionComponent} from 'react';
 import {IAboutInput, PaymentType} from "./AboutInput";
 import EventCategories from "../../../../mocks/categories";
 import "../NewEventForm.css";
-import {inputContainerClass, labelContainerClass} from "../NewEventForm";
+import {inputContainerClass, labelContainerClass, numCharsInText} from "../NewEventForm";
 
 interface IAboutProps {
     input: IAboutInput;
@@ -55,6 +55,14 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
                 <textarea name="description"
                           value={props.input.description}
                           onChange={props.onAboutChange} placeholder={"Write about your event, be creative"}/>
+                <div className={"sub-form--field--input-info"}>
+                    <div>
+                        <span>
+                        Max length 140 characters
+                        </span>
+                    </div>
+                    <div>{numCharsInText(props.input.description)}/140</div>
+                </div>
             </div>
 
             <div className={"sub-form--field--error-container"}>
@@ -77,6 +85,9 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
                     </option>
                     {eventCategories}
                 </select>
+                <div className={"sub-form--field--input-info"}>
+                    <span>Describes topic and people who should be interested in this event</span>
+                </div>
             </div>
 
             <div className={"sub-form--field--error-container"}/>
@@ -113,21 +124,26 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
         </div>
 
         <div className={"sub-form--field"}>
-            <div className={"sub-form--field--label-container"}>
+            <div className={labelContainerClass(props.input.rewardError)}>
                 <label htmlFor={"reward"}>
                     Reward
                 </label>
             </div>
 
-            <div className={"sub-form--field--input-container"}>
+            <div className={inputContainerClass(props.input.rewardError)}>
                 <label>
                     <input type="number" name="reward" min="0" placeholder={"Number"} value={props.input.reward}
                            onChange={props.onAboutChange}/>
                 </label>
                 <span>reward points for attendance</span>
             </div>
+
+            <div className={"sub-form--field--error-container"}>
+                {props.input.rewardError !== "" ? <label>{props.input.rewardError}</label> : null}
+            </div>
         </div>
     </div>
 };
+
 
 export default About;

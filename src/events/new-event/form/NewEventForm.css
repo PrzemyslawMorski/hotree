@@ -1,39 +1,43 @@
 .form {
-    display: flex;
+    display: flex; /* flex - display sub-forms centered in a column*/
     flex-direction: column;
     align-items: center;
+
     padding: 20px 10px;
 }
 
 .sub-form {
     background-color: white;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* margin between sub-forms and the publish event button */
     box-shadow: 0 0 3px 0 lightgray;
     border-radius: 2px;
     border-color: darkgray;
     padding: 10px 10px;
-    display: flex;
+
+    display: flex; /* flex - display header and fields in a column - aligned to the left */
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
 }
 
 .sub-form--header-container {
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid lightgray; /* header underlined */
     margin-bottom: 10px;
     padding-bottom: 5px;
+
     width: 100%;
     font-size: larger;
     color: #1e3b68;
 }
 
 .sub-form--field {
-    display: flex;
+    display: flex; /* flex mobile-first - display label, input and error containers in a column - aligned to left */
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* margin between fields, no margin on last field*/
     width: 100%;
 }
+
 .sub-form--field:last-child {
     margin-bottom: 0;
 }
@@ -45,7 +49,11 @@
 }
 
 .sub-form--field--label-error label {
-    color: red;
+    color: red; /* this class is applied when an associated error-container contains an error message */
+}
+
+.sub-form--field--input-container {
+    width: 100%;
 }
 
 .sub-form--field--input-container {
@@ -54,7 +62,7 @@
 
 .sub-form--field--input-error input,
 .sub-form--field--input-error textarea {
-    border-color: red !important;
+    border-color: red !important; /* this class is applied when an associated error-container contains an error message */
 }
 
 .sub-form--field--error-container {
@@ -65,12 +73,13 @@
     font-weight: bold;
     border-radius: 2px;
 }
+
 .sub-form--field--error-container:empty {
-    display: none;
+    display: none; /* dont display error container when there's no error to display */
 }
 
 .sub-form--field--input-container select {
-    white-space: nowrap;
+    white-space: nowrap; /* makes sure that select doesn't overflow container on small screens */
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -86,6 +95,10 @@
     margin-bottom: 5px;
 }
 
+.sub-form--field--input-container textarea {
+    resize: none;
+}
+
 .sub-form--field--input-container input,
 .sub-form--field--input-container textarea,
 .sub-form--field--input-container select {
@@ -95,21 +108,40 @@
     background-color: white;
 }
 
-.sub-form--field--input-container input {
-    margin-bottom: 5px;
+.sub-form--field--input-container input,
+.sub-form--field--input-container select {
+    margin-bottom: 5px; /* margin between input and sth that comes after it e.g. span/label */
 }
+
 .sub-form--field--input-container input[type="number"] {
-    width: 8rem;
-    margin-right: 10px;
+    width: 6em; /* number input needs to be narrower/shorter */
+    margin-right: 10px; /* margin between input and sth that comes after it e.g. span/label */
 }
 
 .sub-form--field--input-container > label {
     display: flex;
+    /*
+    flex - input container sometimes contains a
+    label with an input and some text,
+    flex makes sure the text is centered vertically
+    */
     align-items: center;
 }
 
 .sub-form--field--input-container > label > span {
-    padding-right: 10px;
+    margin-right: 10px;
+    /*
+    input container sometimes contains a
+    label with an input and some text, there needs to be some space between those elements
+    */
+}
+
+.sub-form--field--input-info {
+    font-size: smaller;
+    display:flex;
+    justify-content: space-between;
+    font-style: italic;
+    color: darkgray;
 }
 
 optgroup {
@@ -121,54 +153,68 @@ optgroup option {
 }
 
 @media screen and (min-width: 978px) {
-    .form {
-        padding: 15px 10%;
-    }
-
     .sub-form {
         padding: 20px 30px;
-        max-width: 900px;
+        width: 70em;
+        /* max-width stops the form from getting super wide,
+        not sure how to handle huge screens though, increase font size?*/
     }
 
     .sub-form--field {
-        flex-direction: row;
+        flex-direction: row; /* flex - label, input and error containers in a row on bigger screens*/
     }
 
     .sub-form--field--label-container {
-        min-width: 120px;
+        min-width: 8em; /* fixed width for all label containers */
+        max-width: 8em;
+        /* not sure why width: 15em doesn't work but I don't have time to fix it and this works for now */
     }
 
     .sub-form--field--error-container {
         display: block;
-        min-width: 10rem;
+        width: 17em;
+        /* fixed width for all error containers,
+               relative to font-size to display the titleError on one line */
         margin-left: 10px;
     }
 
     .sub-form--field--error-container:empty {
-        display: block;
-        background-color:white;
+        display: block; /* show an error container even when there's no error message on bigger screens */
+        background-color: white;
     }
 
     .sub-form--field--input-container {
-        display: flex;
+        display: flex; /* flex - display multiple inputs in a row centered vertically */
         flex-direction: row;
         align-items: center;
     }
 
-    .sub-form--field--input-container input[type="number"] {
-        width: 5rem;
+    .sub-form--field--input-container label {
+        margin-right: 10px; /* margin between multiple inputs in a row */
     }
 
-    .sub-form--field--input-container label {
-        margin-right: 10px;
+    .sub-form--field--input-container {
+        min-height: 2em; /* min-height blocks eventFee input from resizing it's input container */
+        flex-grow: 1;
     }
 
     .sub-form--field--input-container textarea {
-        height: 8rem;
+        height: 10em;
     }
 
     .sub-form--field--input-container > label > span {
         padding-left: 10px;
+        /* labels in an input container sometimes contain an input and a span,
+               this puts some distance between the span and the input */
+    }
+
+    .sub-form--field--input-container {
+        flex-wrap: wrap;
+    }
+
+    .sub-form--field--input-info {
+        order: 4; /* combination of flex-wrap and order 4 pushes the info container to next row*/
+        width: 100%;
     }
 }
 

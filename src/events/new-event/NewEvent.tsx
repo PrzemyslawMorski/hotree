@@ -15,6 +15,7 @@ class NewEvent extends Component {
 
     render() {
         if (this.state.eventCreated) {
+            // this should be a redirect to a success page
             return <Summary/>
         }
 

@@ -7,6 +7,7 @@ import {NewEventDto} from "../NewEventDto";
 import {ICoordinatorInput} from "./coordinator/CoordinatorInput";
 import {DayPeriod, IWhenInput} from "./when/WhenInput";
 import "./NewEventForm.css";
+import {User} from "../../../mocks/employees";
 
 
 interface INewEventFormProps {
@@ -33,9 +34,10 @@ class NewEventForm extends Component<INewEventFormProps> {
             eventFee: "",
             eventFeeError: "",
             reward: "",
+            rewardError: "",
         },
         coordinatorInput: {
-            id: "",
+            id: User!.id.toString(),
             email: "",
             emailError: "",
         },
@@ -45,12 +47,15 @@ class NewEventForm extends Component<INewEventFormProps> {
             startDateError: "",
             startDayPeriod: DayPeriod.AM,
             duration: "",
+            durationError: "",
         },
     };
 
     constructor(props: INewEventFormProps) {
         super(props);
+
         this.onSubmit = this.onSubmit.bind(this);
+
         this.onAboutChange = this.onAboutChange.bind(this);
         this.onCoordinatorChange = this.onCoordinatorChange.bind(this);
         this.onWhenChange = this.onWhenChange.bind(this);
@@ -71,16 +76,18 @@ class NewEventForm extends Component<INewEventFormProps> {
 
     onAboutChange(event: FormEvent) {
         const target = event.target as HTMLInputElement;
-        const value = target.value.trim();
+        const value = target.value;
         const name = target.name;
-
 
         const newAboutInput = this.state.aboutInput;
         newAboutInput[name] = value;
 
-
-        if(name == "paymentType" && value == PaymentType.FreeEvent) {
+        if (name == "paymentType" && value == PaymentType.FreeEvent) {
             newAboutInput.eventFeeError = "";
+        }
+
+        if (name == "description" && numCharsInText(value) > 140) {
+            return;
         }
 
         this.setState({aboutInput: newAboutInput});
@@ -116,26 +123,42 @@ class NewEventForm extends Component<INewEventFormProps> {
         let titleError = "";
         let descriptionError = "";
         let paymentFeeError = "";
+        let rewardError = "";
 
         let emailError = "";
 
         let startDateError = "";
+        let durationError = "";
 
         if (this.state.aboutInput.title == "") {
+            formValid = false;
             titleError = "Title cannot be empty"
         }
 
         if (this.state.aboutInput.description == "") {
+            formValid = false;
             descriptionError = "Description cannot be empty"
         }
 
         if (this.state.aboutInput.description != "" && this.state.aboutInput.description.length > 140) {
+            formValid = false;
             descriptionError = "Description cannot be longer than 140 characters"
         }
 
         if (this.state.aboutInput.paymentType == PaymentType.PaidEvent &&
             this.state.aboutInput.eventFee == "") {
+            formValid = false;
             paymentFeeError = "Payment fee cannot be empty"
+        }
+
+        if (this.state.aboutInput.paymentType == PaymentType.PaidEvent &&
+            Number(this.state.aboutInput.eventFee) < 0) {
+            formValid = false;
+            paymentFeeError = "Payment fee cannot be negative"
+        }
+
+        if (Number(this.state.aboutInput.reward) < 0) {
+            rewardError = "Reward cannot be negative"
         }
 
         if (this.state.coordinatorInput.email != "" &&
@@ -151,23 +174,30 @@ class NewEventForm extends Component<INewEventFormProps> {
             startDateError = "Event cannot be created prior to current date";
         }
 
+        if (Number(this.state.whenInput.duration) < 0) {
+            durationError = "Duration cannot be negative"
+        }
+
         const newState = this.state;
 
-        newState.coordinatorInput.emailError = emailError;
         newState.aboutInput.titleError = titleError;
         newState.aboutInput.descriptionError = descriptionError;
         newState.aboutInput.eventFeeError = paymentFeeError;
+        newState.aboutInput.rewardError = rewardError;
+
+        newState.coordinatorInput.emailError = emailError;
+
         newState.whenInput.startDateError = startDateError;
+        newState.whenInput.durationError = durationError;
 
         if (titleError != "" || descriptionError != "" || paymentFeeError != "" ||
-            emailError != "" || startDateError != "") {
+            rewardError != "" || emailError != "" || startDateError != "" ||
+            durationError != "") {
             formValid = false;
         }
 
         if (formValid) {
-            console.log("submitted");
-
-            const dateFormatted = date12hTo24h(this.state.whenInput.startDate,
+            const dateFormatted = format12hDate(this.state.whenInput.startDate,
                 this.state.whenInput.startTime, this.state.whenInput.startDayPeriod);
 
             let categoryIdAsNum = Number.parseInt(this.state.aboutInput.categoryId);
@@ -211,12 +241,44 @@ class NewEventForm extends Component<INewEventFormProps> {
     }
 }
 
-function date12hTo24h(startDate: string, startTime: string, startDayPeriod: DayPeriod): string {
-    return "date12hTo24h not implemented";
+function format12hDate(startDate: string, startTime: string = "00:00", startDayPeriod: DayPeriod = DayPeriod.PM): string {
+    const yearMonthDay = startDate.split("-");
+    if (yearMonthDay.length !== 3) {
+        return startDate;
+    }
+
+    if (startTime === "") {
+        startTime = "00:00";
+    }
+
+    const hourMinute = startTime.split(":");
+    if (hourMinute.length !== 2) {
+        return startDate;
+    }
+
+    let hourAsNum = Number(hourMinute[0]);
+
+    if (Number.isNaN(Number(yearMonthDay[0])) || Number.isNaN(Number(yearMonthDay[1])) || Number.isNaN(Number(yearMonthDay[2])) ||
+        Number.isNaN(hourAsNum) || Number.isNaN(Number(hourMinute[1]))) {
+        return startDate;
+    }
+
+    if (hourAsNum >= 13 || hourAsNum === 0) {
+        // time is in 24h format
+        return `${startDate}T${startTime}`
+    }
+
+    // time is in 12h format
+    if (startDayPeriod === DayPeriod.PM) {
+        hourAsNum += 12;
+    }
+
+    const time = hourAsNum.toString() + hourMinute[1];
+    return `${startDate}T${time}`;
 }
 
 export function labelContainerClass(fieldErrorValue: string) {
-    if(fieldErrorValue !== "") {
+    if (fieldErrorValue !== "") {
         return "sub-form--field--label-container sub-form--field--label-error"
     } else {
         return "sub-form--field--label-container";
@@ -224,11 +286,16 @@ export function labelContainerClass(fieldErrorValue: string) {
 }
 
 export function inputContainerClass(fieldErrorValue: string) {
-    if(fieldErrorValue !== "") {
-        return "sub-form--field--input-container sub-form--field--input-error"
+    if (fieldErrorValue !== "") {
+        return " sub-form--field--input-error"
     } else {
         return "sub-form--field--input-container";
     }
+}
+
+export function numCharsInText(text: string): number {
+    // count all chars except whitespace
+    return text.replace(" ", "").length;
 }
 
 export default NewEventForm;

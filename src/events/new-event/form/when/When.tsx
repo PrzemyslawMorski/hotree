@@ -30,7 +30,7 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
                     <label>
                         <span>at</span>
                         <input type="time" name="startTime" value={props.input.startTime} onChange={props.onWhenChange}
-                               min={"0:00"} max={"11:59"} step={60}/>
+                               min={"1:0"} max={"12:59"} step={60}/>
                     </label>
 
                     <label>
@@ -52,19 +52,22 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
             </div>
 
             <div className={"sub-form--field"}>
-                <div className={"sub-form--field--label-container"}>
+                <div className={labelContainerClass(props.input.durationError)}>
                     <label htmlFor={"duration"}>
                         Duration
                     </label>
                 </div>
 
-                <div className={"sub-form--field--input-container"}>
+                <div className={inputContainerClass(props.input.durationError)}>
                     <input type="number" name="duration" min="0" value={props.input.duration} onChange={props.onWhenChange}
                            placeholder={"Number"}/>
 
                     <span>hour</span>
                 </div>
 
+                <div className={"sub-form--field--error-container"}>
+                    {props.input.durationError !== "" ? <label>{props.input.durationError}</label> : null}
+                </div>
             </div>
         </div>
     );
