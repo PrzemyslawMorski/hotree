@@ -2,7 +2,8 @@ import React, {FormEvent, FunctionComponent} from 'react';
 import {IAboutInput, PaymentType} from "./AboutInput";
 import EventCategories from "../../../mocks/categories";
 import "../NewEventForm.css";
-import {inputContainerClass, labelContainerClass, numCharsInText} from "../NewEventForm";
+import {inputContainerClass, labelContainerClass} from "../NewEventForm";
+import {numCharsInText} from "../../../common/helperFunctions";
 
 interface IAboutProps {
     input: IAboutInput;
@@ -15,7 +16,7 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
 
     const paymentFeeInput = props.input.paymentType == PaymentType.FreeEvent ? null :
         <label>
-            <input type="number" min={0.00} step={0.01} required name="eventFee" value={props.input.eventFee}
+            <input id="event-fee-input" type="number" min={0.00} step={0.01} required name="eventFee" value={props.input.eventFee}
                    onChange={props.onAboutChange} placeholder={"Fee"}/>
             <span>$</span>
         </label>;
@@ -28,31 +29,31 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
 
         <div className={"sub-form--field"}>
             <div className={labelContainerClass(props.input.titleError)}>
-                <label htmlFor={"title"}>
+                <label id="title-label" htmlFor={"title"}>
                     Title<span style={{color: "red"}}>*</span>
                 </label>
             </div>
 
             <div className={inputContainerClass(props.input.titleError)}>
-                <input type="text" name="title" value={props.input.title}
+                <input id="title-input" type="text" name="title" value={props.input.title}
                        onChange={props.onAboutChange}
                        placeholder={"Make it short and clear"}/>
             </div>
 
             <div className={"sub-form--field--error-container"}>
-                {props.input.titleError !== "" ? <label>{props.input.titleError}</label> : null}
+                {props.input.titleError !== "" ? <label id="title-error">{props.input.titleError}</label> : null}
             </div>
         </div>
 
         <div className={"sub-form--field"}>
             <div className={labelContainerClass(props.input.descriptionError)}>
-                <label htmlFor={"description"}>
+                <label id="description-label" htmlFor={"description"}>
                     Description<span style={{color: "red"}}>*</span>
                 </label>
             </div>
 
             <div className={inputContainerClass(props.input.descriptionError)}>
-                <textarea name="description"
+                <textarea id="description-input" name="description"
                           value={props.input.description}
                           onChange={props.onAboutChange} placeholder={"Write about your event, be creative"}/>
                 <div className={"sub-form--field--input-info"}>
@@ -66,7 +67,7 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
             </div>
 
             <div className={"sub-form--field--error-container"}>
-                {props.input.descriptionError !== "" ? <label>{props.input.descriptionError}</label> : null}
+                {props.input.descriptionError !== "" ? <label id={"description-error"}>{props.input.descriptionError}</label> : null}
             </div>
         </div>
 
@@ -118,7 +119,7 @@ const About: FunctionComponent<IAboutProps> = (props: IAboutProps) => {
             </div>
 
             <div className={"sub-form--field--error-container"}>
-                {props.input.eventFeeError !== "" ? <label>{props.input.eventFeeError}</label> : null}
+                {props.input.eventFeeError !== "" ? <label id={"event-fee-error"}>{props.input.eventFeeError}</label> : null}
             </div>
 
         </div>

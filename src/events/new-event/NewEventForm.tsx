@@ -10,6 +10,7 @@ import "./NewEventForm.css";
 import {User} from "../../mocks/employees";
 import Summary from "./summary/Summary";
 import {w3cEmailRegex} from "../../common/constants";
+import {format12hDate, numCharsInText} from "../../common/helperFunctions";
 
 interface INewEventFormState {
     eventCreated: boolean;
@@ -72,7 +73,7 @@ class NewEventForm extends Component {
                 <Coordinator input={this.state.coordinatorInput} onCoordinatorChange={this.onCoordinatorChange}/>
                 <When input={this.state.whenInput} onWhenChange={this.onWhenChange}/>
                 <div>
-                    <button type="submit" className={"button--success"}>Publish event</button>
+                    <button id="publish-event" type="submit" className={"button--success"}>Publish event</button>
                 </div>
             </form>
         );
@@ -83,7 +84,7 @@ class NewEventForm extends Component {
         const value = target.value;
         const name = target.name;
 
-        const newAboutInput = this.state.aboutInput;
+        const newAboutInput = {...this.state.aboutInput};
         newAboutInput[name] = value;
 
         if (name == "paymentType" && value == PaymentType.FreeEvent) {
@@ -101,10 +102,10 @@ class NewEventForm extends Component {
 
     onCoordinatorChange(event: FormEvent) {
         const target = event.target as HTMLInputElement;
-        const value = target.value.trim();
+        const value = target.value;
         const name = target.name;
 
-        const newCoordinatorInput = this.state.coordinatorInput;
+        const newCoordinatorInput = {...this.state.coordinatorInput};
         newCoordinatorInput[name] = value;
 
         this.setState({coordinatorInput: newCoordinatorInput});
@@ -112,10 +113,10 @@ class NewEventForm extends Component {
 
     onWhenChange(event: FormEvent) {
         const target = event.target as HTMLInputElement;
-        const value = target.value.trim();
+        const value = target.value;
         const name = target.name;
 
-        const newWhenInput = this.state.whenInput;
+        const newWhenInput = {...this.state.whenInput};
         newWhenInput[name] = value;
 
         this.setState({whenInput: newWhenInput});
@@ -256,42 +257,6 @@ class NewEventForm extends Component {
     }
 }
 
-function format12hDate(startDate: string, startTime: string = "00:00", startDayPeriod: DayPeriod = DayPeriod.PM): string {
-    const yearMonthDay = startDate.split("-");
-    if (yearMonthDay.length !== 3) {
-        return startDate;
-    }
-
-    if (startTime === "") {
-        startTime = "00:00";
-    }
-
-    const hourMinute = startTime.split(":");
-    if (hourMinute.length !== 2) {
-        return startDate;
-    }
-
-    let hourAsNum = Number(hourMinute[0]);
-
-    if (Number.isNaN(Number(yearMonthDay[0])) || Number.isNaN(Number(yearMonthDay[1])) || Number.isNaN(Number(yearMonthDay[2])) ||
-        Number.isNaN(hourAsNum) || Number.isNaN(Number(hourMinute[1]))) {
-        return startDate;
-    }
-
-    if (hourAsNum >= 13 || hourAsNum === 0) {
-        // time is in 24h format
-        return `${startDate}T${startTime}`
-    }
-
-    // time is in 12h format
-    if (startDayPeriod === DayPeriod.PM) {
-        hourAsNum += 12;
-    }
-
-    const time = hourAsNum.toString() + hourMinute[1];
-    return `${startDate}T${time}`;
-}
-
 export function labelContainerClass(fieldErrorValue: string) {
     if (fieldErrorValue !== "") {
         return "sub-form--field--label-container sub-form--field--label-error"
@@ -306,11 +271,6 @@ export function inputContainerClass(fieldErrorValue: string) {
     } else {
         return "sub-form--field--input-container";
     }
-}
-
-export function numCharsInText(text: string): number {
-    // count all chars except whitespace
-    return text.replace(" ", "").length;
 }
 
 export default NewEventForm;

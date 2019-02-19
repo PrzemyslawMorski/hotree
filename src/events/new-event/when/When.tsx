@@ -29,7 +29,7 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
 
                     <label>
                         <span>at</span>
-                        <input type="time" name="startTime" value={props.input.startTime} onChange={props.onWhenChange}
+                        <input id="start-date-input" type="time" name="startTime" value={props.input.startTime} onChange={props.onWhenChange}
                                min={"1:0"} max={"12:59"} step={60}/>
                     </label>
 
@@ -47,7 +47,7 @@ const When: FunctionComponent<IWhenProps> = (props: IWhenProps) => {
                 </div>
 
                 <div className={"sub-form--field--error-container"}>
-                    {props.input.startDateError !== "" ? <label>{props.input.startDateError}</label> : null}
+                    {props.input.startDateError !== "" ? <label id={"start-date-error"}>{props.input.startDateError}</label> : null}
                 </div>
             </div>
 

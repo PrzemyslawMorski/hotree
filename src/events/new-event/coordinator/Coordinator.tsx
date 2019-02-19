@@ -68,12 +68,12 @@ const Coordinator: FunctionComponent<ICoordinatorProps> = (props: ICoordinatorPr
             </div>
 
             <div className={inputContainerClass(props.input.emailError)}>
-                <input type="text" name="email" value={props.input.email} onChange={props.onCoordinatorChange}
+                <input id={"email-input"} type="text" name="email" value={props.input.email} onChange={props.onCoordinatorChange}
                        placeholder={"Email"}/>
             </div>
 
             <div className={"sub-form--field--error-container"}>
-                {props.input.emailError !== "" ? <label>{props.input.emailError}</label> : null}
+                {props.input.emailError !== "" ? <label id={"email-error"}>{props.input.emailError}</label> : null}
             </div>
         </div>
     </div>
