@@ -12,7 +12,7 @@ const Summary: React.FunctionComponent<ISummaryProps> = (props) => {
             <span>Event has been created.</span>
         </div>
 
-        <button onClick={props.onBackToFormClick}>Back to form - for testing convenience</button>
+        <button className={"button--success"} onClick={props.onBackToFormClick}>Back to form - for testing convenience</button>
     </div>
 };
 

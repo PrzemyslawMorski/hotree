@@ -58,7 +58,6 @@ class NewEventForm extends Component {
         this.onCoordinatorChange = this.onCoordinatorChange.bind(this);
         this.onWhenChange = this.onWhenChange.bind(this);
 
-        // convenience methods for quick submitting and returning to the form
         this.onEventCreated = this.onEventCreated.bind(this);
         this.onBackToForm = this.onBackToForm.bind(this);
     }
@@ -73,8 +72,8 @@ class NewEventForm extends Component {
                 <About input={this.state.aboutInput} onAboutChange={this.onAboutChange}/>
                 <Coordinator input={this.state.coordinatorInput} onCoordinatorChange={this.onCoordinatorChange}/>
                 <When input={this.state.whenInput} onWhenChange={this.onWhenChange}/>
-                <div className={"submit"}>
-                    <button type="submit" className={"submit--button"}>Publish event</button>
+                <div>
+                    <button type="submit" className={"button--success"}>Publish event</button>
                 </div>
             </form>
         );
@@ -302,7 +301,7 @@ export function labelContainerClass(fieldErrorValue: string) {
 
 export function inputContainerClass(fieldErrorValue: string) {
     if (fieldErrorValue !== "") {
-        return " sub-form--field--input-error"
+        return "sub-form--field--input-container sub-form--field--input-error"
     } else {
         return "sub-form--field--input-container";
     }

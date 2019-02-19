@@ -56,13 +56,9 @@
     width: 100%;
 }
 
-.sub-form--field--input-container {
-    width: 100%;
-}
-
 .sub-form--field--input-error input,
 .sub-form--field--input-error textarea {
-    border-color: red !important; /* this class is applied when an associated error-container contains an error message */
+    border-color: red; /* this class is applied when an associated error-container contains an error message */
 }
 
 .sub-form--field--error-container {
@@ -155,13 +151,13 @@ optgroup option {
 @media screen and (min-width: 978px) {
     .sub-form {
         padding: 20px 30px;
-        width: 70em;
-        /* max-width stops the form from getting super wide,
-        not sure how to handle huge screens though, increase font size?*/
+        width: 900px;
+        /* max-width stops the form from getting super wide on larger screens */
     }
 
     .sub-form--field {
         flex-direction: row; /* flex - label, input and error containers in a row on bigger screens*/
+        width: 100%;
     }
 
     .sub-form--field--label-container {
@@ -171,8 +167,7 @@ optgroup option {
     }
 
     .sub-form--field--error-container {
-        display: block;
-        width: 17em;
+        width: 20em;
         /* fixed width for all error containers,
                relative to font-size to display the titleError on one line */
         margin-left: 10px;
@@ -187,15 +182,13 @@ optgroup option {
         display: flex; /* flex - display multiple inputs in a row centered vertically */
         flex-direction: row;
         align-items: center;
+
+        flex-wrap: wrap;
+        min-height: 2em; /* min-height blocks eventFee input from resizing it's input container */
     }
 
     .sub-form--field--input-container label {
         margin-right: 10px; /* margin between multiple inputs in a row */
-    }
-
-    .sub-form--field--input-container {
-        min-height: 2em; /* min-height blocks eventFee input from resizing it's input container */
-        flex-grow: 1;
     }
 
     .sub-form--field--input-container textarea {
@@ -208,17 +201,13 @@ optgroup option {
                this puts some distance between the span and the input */
     }
 
-    .sub-form--field--input-container {
-        flex-wrap: wrap;
-    }
-
     .sub-form--field--input-info {
-        order: 4; /* combination of flex-wrap and order 4 pushes the info container to next row*/
+        order: 4; /* combination of flex-wrap on parent and order 4 pushes the info container to next row*/
         width: 100%;
     }
 }
 
-.submit--button {
+.button--success {
     background-color: darkorange;
     padding: 15px 30px;
 

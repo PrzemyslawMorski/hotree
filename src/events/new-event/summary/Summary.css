@@ -16,6 +16,8 @@
     flex-direction: column;
 
     padding: 15px 20px;
+
+    margin-bottom: 20px; /* some space between the back-to-form button */
 }
 
 .summary > div > span {
