@@ -5,7 +5,7 @@ import NewEventForm from "./NewEventForm";
 // I tried writing tests to check the invariants from the form's spec
 // No idea why they don't work though.
 //
-// I'm leaving them here to acknowledge my interest in building well-tested software
+// I'm leaving them here to highlight my interest in building well-tested software
 
 describe("<NewEventForm />", () => {
     it('renders without crashing', () => {
