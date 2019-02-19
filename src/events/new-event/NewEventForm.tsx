@@ -9,6 +9,7 @@ import {DayPeriod, IWhenInput} from "./when/WhenInput";
 import "./NewEventForm.css";
 import {User} from "../../mocks/employees";
 import Summary from "./summary/Summary";
+import {w3cEmailRegex} from "../../common/constants";
 
 interface INewEventFormState {
     eventCreated: boolean;
@@ -16,8 +17,6 @@ interface INewEventFormState {
     coordinatorInput: ICoordinatorInput;
     whenInput: IWhenInput;
 }
-
-const w3cEmailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 class NewEventForm extends Component {
     state: INewEventFormState = {
@@ -88,10 +87,12 @@ class NewEventForm extends Component {
         newAboutInput[name] = value;
 
         if (name == "paymentType" && value == PaymentType.FreeEvent) {
+            // this removes an eventFeeError when the user switches to Free event
             newAboutInput.eventFeeError = "";
         }
 
         if (name == "description" && numCharsInText(value) > 140) {
+            // blocks the user from entering more than 140 characters
             return;
         }
 
@@ -135,28 +136,28 @@ class NewEventForm extends Component {
         let startDateError = "";
         let durationError = "";
 
-        if (this.state.aboutInput.title == "") {
+        if (this.state.aboutInput.title === "") {
             formValid = false;
             titleError = "Title cannot be empty"
         }
 
-        if (this.state.aboutInput.description == "") {
+        if (this.state.aboutInput.description === "") {
             formValid = false;
             descriptionError = "Description cannot be empty"
         }
 
-        if (this.state.aboutInput.description != "" && this.state.aboutInput.description.length > 140) {
+        if (this.state.aboutInput.description !== "" && this.state.aboutInput.description.length > 140) {
             formValid = false;
             descriptionError = "Description cannot be longer than 140 characters"
         }
 
-        if (this.state.aboutInput.paymentType == PaymentType.PaidEvent &&
+        if (this.state.aboutInput.paymentType === PaymentType.PaidEvent &&
             this.state.aboutInput.eventFee == "") {
             formValid = false;
             paymentFeeError = "Payment fee cannot be empty"
         }
 
-        if (this.state.aboutInput.paymentType == PaymentType.PaidEvent &&
+        if (this.state.aboutInput.paymentType === PaymentType.PaidEvent &&
             Number(this.state.aboutInput.eventFee) < 0) {
             formValid = false;
             paymentFeeError = "Payment fee cannot be negative"
@@ -166,16 +167,16 @@ class NewEventForm extends Component {
             rewardError = "Reward cannot be negative"
         }
 
-        if (this.state.coordinatorInput.email != "" &&
+        if (this.state.coordinatorInput.email !== "" &&
             !w3cEmailRegex.test(this.state.coordinatorInput.email)) {
             emailError = "Email has to be a valid email";
         }
 
-        if (this.state.whenInput.startDate == "") {
+        if (this.state.whenInput.startDate === "") {
             startDateError = "Start date cannot be empty";
         }
 
-        if (this.state.whenInput.startDate != "" && Date.parse(this.state.whenInput.startDate) < Date.now()) {
+        if (this.state.whenInput.startDate !== "" && Date.parse(this.state.whenInput.startDate) < Date.now()) {
             startDateError = "Event cannot be created prior to current date";
         }
 
